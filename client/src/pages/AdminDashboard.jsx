@@ -7,6 +7,11 @@ import {
 import CatalogManagement from '../components/admin/CatalogManagement';
 import StitchingManagement from '../components/admin/StitchingManagement';
 import GalleryManagement from '../components/admin/GalleryManagement';
+import InventoryManagement from '../components/admin/InventoryManagement';
+import CustomerManagement from '../components/admin/CustomerManagement';
+import ReportManagement from '../components/admin/ReportManagement';
+import ShopManagement from '../components/admin/ShopManagement';
+import MeasurementManagement from '../components/admin/MeasurementManagement';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -19,7 +24,6 @@ const AdminDashboard = () => {
     { id: 'stitching', icon: <ClipboardList />, label: 'Stitching Orders' },
     { id: 'measurements', icon: <Ruler />, label: 'Measurements' },
     { id: 'shop', icon: <ShoppingCart />, label: 'Shop Products' },
-    { id: 'orders', icon: <Package />, label: 'Shop Orders' },
     { id: 'inventory', icon: <Warehouse />, label: 'Inventory' },
     { id: 'customers', icon: <Users />, label: 'Customers' },
     { id: 'reports', icon: <BarChart3 />, label: 'Reports' },
@@ -101,12 +105,17 @@ const AdminDashboard = () => {
           {activeTab === 'catalog' && <CatalogManagement />}
           {activeTab === 'stitching' && <StitchingManagement />}
           {activeTab === 'gallery' && <GalleryManagement />}
+          {activeTab === 'inventory' && <InventoryManagement />}
+          {activeTab === 'customers' && <CustomerManagement />}
+          {activeTab === 'reports' && <ReportManagement />}
+          {activeTab === 'shop' && <ShopManagement />}
+          {activeTab === 'measurements' && <MeasurementManagement />}
 
-          {/* placeholder for other tabs */}
-          {['measurements', 'shop', 'orders', 'inventory', 'customers', 'reports', 'settings'].includes(activeTab) && (
+          {/* placeholder for Settings */}
+          {activeTab === 'settings' && (
             <div className="flex flex-col items-center justify-center h-full text-gray-400 italic">
-              <Package size={64} className="mb-4 opacity-20" />
-              <p>The {activeTab} module is coming soon...</p>
+              <Settings size={64} className="mb-4 opacity-20" />
+              <p>The settings module is coming soon...</p>
             </div>
           )}
         </div>
