@@ -4,6 +4,9 @@ import {
   Settings, Package, Ruler, ClipboardList, BarChart3,
   Warehouse, LogOut, Menu, X, Bell, Search
 } from 'lucide-react';
+import CatalogManagement from '../components/admin/CatalogManagement';
+import StitchingManagement from '../components/admin/StitchingManagement';
+import GalleryManagement from '../components/admin/GalleryManagement';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -26,7 +29,7 @@ const AdminDashboard = () => {
   return (
     <div className="flex min-h-screen bg-[#FDF2F8]">
       {/* Sidebar */}
-      <aside className={`${isSidebarOpen ? 'w-72' : 'w-20'} bg-[#2D1B4E] text-white transition-all duration-300 flex flex-col sticky top-0 h-screen shadow-2xl`}>
+      <aside className={`${isSidebarOpen ? 'w-72' : 'w-20'} bg-[#2D1B4E] text-white transition-all duration-300 flex flex-col sticky top-0 h-screen shadow-2xl z-20`}>
         <div className="p-6 flex items-center justify-between">
           {isSidebarOpen && (
             <div className="flex flex-col">
@@ -51,7 +54,7 @@ const AdminDashboard = () => {
               }`}
             >
               <div className="flex-shrink-0">{item.icon}</div>
-              {isSidebarOpen && <span className="font-medium text-sm">{item.label}</span>}
+              {isSidebarOpen && <span className="font-medium text-sm text-left">{item.label}</span>}
             </button>
           ))}
         </nav>
@@ -67,7 +70,7 @@ const AdminDashboard = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-screen overflow-hidden">
         {/* Header */}
-        <header className="bg-white h-20 px-8 flex items-center justify-between border-b border-[#F5E6D3] sticky top-0 z-10">
+        <header className="bg-white h-20 px-8 flex items-center justify-between border-b border-[#F5E6D3] sticky top-0 z-10 flex-shrink-0">
           <div className="relative w-96 hidden md:block">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
             <input
@@ -87,7 +90,7 @@ const AdminDashboard = () => {
                 <p className="text-sm font-bold text-[#2D1B4E]">Admin User</p>
                 <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Super Admin</p>
               </div>
-              <div className="w-10 h-10 bg-[#F472B6] rounded-xl flex items-center justify-center text-white font-bold shadow-md">A</div>
+              <div className="w-10 h-10 bg-[#F472B6] rounded-xl flex items-center justify-center text-white font-bold shadow-md uppercase">A</div>
             </div>
           </div>
         </header>
@@ -95,8 +98,12 @@ const AdminDashboard = () => {
         {/* Dynamic Content */}
         <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
           {activeTab === 'dashboard' && <DashboardOverview />}
+          {activeTab === 'catalog' && <CatalogManagement />}
+          {activeTab === 'stitching' && <StitchingManagement />}
+          {activeTab === 'gallery' && <GalleryManagement />}
+
           {/* placeholder for other tabs */}
-          {activeTab !== 'dashboard' && (
+          {['measurements', 'shop', 'orders', 'inventory', 'customers', 'reports', 'settings'].includes(activeTab) && (
             <div className="flex flex-col items-center justify-center h-full text-gray-400 italic">
               <Package size={64} className="mb-4 opacity-20" />
               <p>The {activeTab} module is coming soon...</p>

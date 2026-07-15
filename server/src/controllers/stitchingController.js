@@ -41,4 +41,20 @@ const getUserOrders = async (req, res) => {
   }
 };
 
-module.exports = { submitOrder, getUserOrders };
+const getAllOrders = async (req, res) => {
+  try {
+    const result = await db.query(
+      `SELECT o.*, d.name as design_name, u.full_name, u.phone
+       FROM orders o
+       LEFT JOIN dress_designs d ON o.design_id = d.id
+       LEFT JOIN users u ON o.user_id = u.id
+       ORDER BY o.created_at DESC`
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching all orders' });
+  }
+};
+
+module.exports = { submitOrder, getUserOrders, getAllOrders };
